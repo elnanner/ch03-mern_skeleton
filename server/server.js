@@ -9,5 +9,5 @@ app.listen(config.port, (err) => {
 })
 
 app.get('/', (req, res)=>{
-    res.status(200).send('Hola Luchin')
+    res.status(200).send('Hola Luchin a')
 })
