@@ -19,6 +19,7 @@ app.use(cors())
 
 // mount routes
 app.use('/', userRoutes)
+app.use('/', authRoutes)
 
 app.get('/', (req, res)=>{
     res.status(200).send(Template())
