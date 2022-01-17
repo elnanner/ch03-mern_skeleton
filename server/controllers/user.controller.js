@@ -11,7 +11,7 @@ const create = async (req, res, next) => {
         })
     } catch (error) {
         return res.status(400).json({
-            error: errorHandler.getErrorMeesage(err)
+            error: errorHandler.getErrorMessage(error)
         })
     }
 }
