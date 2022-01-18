@@ -7,9 +7,14 @@ import helmet from 'helmet'
 import Template from './../template'
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
-import { rest } from 'lodash'
+import devBundle from './devBundle'
+import path from 'path'
+
+const CURRENT_WORKING_DIR = process.cwd()
 
 const app = express()
+devBundle.compile(app)
+
 /*... configure express middlewares here ...*/
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -18,6 +23,8 @@ app.use(compress())
 app.use(helmet())
 app.use(cors())
 
+// serving static files
+app.use('dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // mount routes
 app.use('/', userRoutes)
