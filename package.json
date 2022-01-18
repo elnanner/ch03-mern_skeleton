@@ -6,6 +6,7 @@
   "author": "Luciano Matsuo",
   "license": "MIT",
   "dependencies": {
+    "@hot-loader/react-dom": "^17.0.2",
     "body-parser": "^1.19.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -16,7 +17,8 @@
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.15",
     "mongoose": "5.9.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "react-hot-loader": "^4.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
