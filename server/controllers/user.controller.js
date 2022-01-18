@@ -11,7 +11,7 @@ const create = async (req, res, next) => {
         })
     } catch (error) {
         return res.status(400).json({
-            error: errorHandler.getErrorMeesage(err)
+            error: errorHandler.getErrorMessage(error)
         })
     }
 }
@@ -27,7 +27,7 @@ const list = async (req, res) => {
     }
 }
 
-const userByID = async (req, res) => {
+const userByID = async (req, res, next, id) => {
     try {
         let user = await User.findById(id)
         if (!user)

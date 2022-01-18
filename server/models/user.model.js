@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -30,7 +31,7 @@ UserSchema
     .set(function (password) {
         this._password = password
         this.salt = this.makeSalt()
-        this.hashed_password = this.encriptedPassword(password)
+        this.hashed_password = this.encryptPassword(password)
     })
     .get(function () {
         return this._password
@@ -64,4 +65,5 @@ UserSchema.path('hashed_password').validate(function (v) {
         this.invalidate('password', 'Password is required')
     }
 }, null)
+
 export default mongoose.model('User', UserSchema)
