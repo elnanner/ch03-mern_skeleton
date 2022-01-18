@@ -7,9 +7,11 @@ import helmet from 'helmet'
 import Template from './../template'
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
-import { rest } from 'lodash'
+import devBundle from './devBundle'
 
 const app = express()
+devBundle.compile(app)
+
 /*... configure express middlewares here ...*/
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
