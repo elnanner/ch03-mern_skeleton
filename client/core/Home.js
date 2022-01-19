@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import unicornbikeImg from './../assets/images/unicornbike.jpg'
-import { red } from '@material-ui/core/colors'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
 
@@ -37,6 +37,7 @@ export default function Home() {
           Welcome to the MERN skeleton home page.
         </Typography>
       </CardContent>
+      <Link to='/users'>Users</Link>
     </Card>
   )
 }
