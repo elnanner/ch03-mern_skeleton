@@ -38,6 +38,7 @@ export default function Home() {
         </Typography>
       </CardContent>
       <Link to='/users'>Users</Link>
+      <Link to='/signup'>Sign Up</Link>
     </Card>
   )
 }
