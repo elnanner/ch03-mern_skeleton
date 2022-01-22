@@ -1,4 +1,4 @@
-import { auth } from '../auth/auth-helper'
+import auth from '../auth/auth-helper'
 import { read } from './api-user';
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
@@ -15,6 +15,7 @@ import Edit from '@material-ui/icons/Edit'
 import Person from '@material-ui/icons/Person'
 import Divider from '@material-ui/core/Divider'
 import { Redirect, Link } from 'react-router-dom'
+import DeleteUser from './DeleteUser';
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -77,7 +78,7 @@ const Profile = ({ match }) => {
                   <Edit />
                 </IconButton>
               </Link>
-              {/* <DeleteUser userId={user._id} /> */}
+              <DeleteUser userId={user._id} />
             </ListItemSecondaryAction>)
           }
         </ListItem>

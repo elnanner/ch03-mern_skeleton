@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router'
 import { signin } from '../auth/api-auth'
-import { auth } from '../auth/auth-helper'
+import auth from '../auth/auth-helper'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -57,7 +57,7 @@ const Signin = (props) => {
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value })
         console.log(event.target.value);
-      }
+    }
 
     const clickSubmit = () => {
         const user = {
@@ -93,7 +93,7 @@ const Signin = (props) => {
                 <Typography variant='h6' className={classes.title}>
                     Sign In
                 </Typography>
-                
+
                 <TextField id="email" type="email" label="Email"
                     className={classes.textField}
                     value={values.email} onChange={handleChange('email')}
@@ -119,7 +119,7 @@ const Signin = (props) => {
             </CardActions>
         </Card>
 
-        {/* <Dialog open={values.open} disableBackdropClick={true}>
+        <Dialog open={values.open} disableBackdropClick={true}>
             <DialogTitle>New Account</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -134,7 +134,7 @@ const Signin = (props) => {
                     </Button>
                 </Link>
             </DialogActions>
-        </Dialog> */}
+        </Dialog>
     </div>;
 };
 

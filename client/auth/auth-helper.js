@@ -1,7 +1,7 @@
 import { signout } from "./api-auth"
 
 const auth = {
-
+    
     isAuthenticated() {
         if (typeof window == 'undefined') {
             return false
@@ -31,4 +31,4 @@ const auth = {
     }
 }
 
-export { auth }
+export default auth

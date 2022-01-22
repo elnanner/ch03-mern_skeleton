@@ -55,7 +55,6 @@ const update = async (params, credentials, user) => {
     try {
         let response = await fetch('/api/users/' + params.userId, {
             method: 'PUT',
-            signal: signal,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -79,7 +79,7 @@ const Signup = () => {
         <Typography variant='h6' className={classes.title}>
           Sign Up
         </Typography>
-        <TextField id='name' label='name'
+        <TextField id='name' label='Name'
           className={classes.textField}
           value={values.name}
           onChange={handleChange('name')}
