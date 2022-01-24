@@ -37,10 +37,6 @@ export default function Home() {
           Welcome to the MERN skeleton home page.
         </Typography>
       </CardContent>
-      <Link to='/users'>Users </Link>
-      <Link to='/signup'>Sign Up </Link>
-      <Link to='/signin'>Sign In </Link>
-      <Link to='/user/61e6e7c84835ba13147523c2'>View profile </Link>
     </Card>
   )
 }
