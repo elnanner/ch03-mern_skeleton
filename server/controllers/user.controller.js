@@ -51,6 +51,7 @@ const read = (req, res) => {
 
 const update = async (req, res, next) => {
     try {
+        debugger;
         let user = req.profile
         user = extend(user, req.body)
         user.updated = Date.now()
