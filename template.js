@@ -13,13 +13,13 @@ export default ({ markup, css }) => {
           <style>
               a{
                 text-decoration: none;
-                color: #061d95
+                color: #061d95;
               }
           </style>
         </head>
         <body style="margin:0">
           <div id="root">${markup}</div>
-          <script id="jss-server-side">${css}</script>
+          <style id="jss-server-side">${css}</style>
           <script type="text/javascript" src="/dist/bundle.js"></script>
         </body>
       </html>`
