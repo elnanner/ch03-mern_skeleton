@@ -36,7 +36,6 @@ export default function DeleteUser(props) {
     }
 
     if (redirect) {
-        console.log(`Redirigiendo`);
         return <Redirect to='/' />
     }
     return (<span>

@@ -55,7 +55,6 @@ const Signup = () => {
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
-    console.log(event.target.value);
   }
 
   const clickSubmit = () => {
@@ -66,7 +65,6 @@ const Signup = () => {
     }
     create(user).then((data) => {
       if (data.error) {
-        console.log('error ' + data);
         setValues({ ...values, error: data.error })
       } else {
         setValues({ ...values, error: '', open: true })

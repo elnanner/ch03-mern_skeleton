@@ -45,7 +45,6 @@ const Profile = ({ match }) => {
         setRedirecToSignin(true)
       } else {
         setUser(data)
-        console.log(data);
       }
     })
 
