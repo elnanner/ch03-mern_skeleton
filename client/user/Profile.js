@@ -84,6 +84,10 @@ const Profile = ({ match }) => {
         </ListItem>
         <Divider />
         <ListItem>
+          <ListItemText primary={this.state.user.about} />
+        </ListItem>
+        <Divider />
+        <ListItem>
           <ListItemText primary={"Joined: " + (
             new Date(user.created)).toDateString()} />
         </ListItem>
