@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginTop: theme.spacing(3),
     color: theme.palette.protectedTitle
+  },
+  bigAvatar: {
+    width: 60,
+    height: 60,
+    margin: 10
   }
 }))
 
@@ -46,6 +51,8 @@ const Profile = ({ match }) => {
       } else {
         setUser(data)
         console.log(data);
+        console.log(data.photo);
+
       }
     })
 
@@ -53,6 +60,10 @@ const Profile = ({ match }) => {
       abortController.abort()
     }
   }, [match.params.userId]);
+
+  const photoUrl = user._id
+    ? `/api/users/photo/${user._id}?${new Date().getTime()}`
+    : '/api/users/defaultPhoto'
 
   if (redirecToSignin) {
     <Redirect to={'/signin'} />
@@ -66,7 +77,7 @@ const Profile = ({ match }) => {
       <List dense>
         <ListItem>
           <ListItemAvatar>
-            <Avatar>
+            <Avatar src={photoUrl} className={classes.bigAvatar}>
               <Person />
             </Avatar>
           </ListItemAvatar>
@@ -84,7 +95,7 @@ const Profile = ({ match }) => {
         </ListItem>
         <Divider />
         <ListItem>
-          <ListItemText primary={this.state.user.about} />
+          <ListItemText primary={user.about} />
         </ListItem>
         <Divider />
         <ListItem>

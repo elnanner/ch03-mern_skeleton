@@ -56,7 +56,6 @@ const Signin = (props) => {
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value })
-        console.log(event.target.value);
     }
 
     const clickSubmit = () => {
