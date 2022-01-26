@@ -86,4 +86,37 @@ const remove = async (params, credentials) => {
     }
 }
 
+// follow an user
+const follow = async (params, credentials, followId) => {
+    try {
+        let response = await fetch('/api/users/follow/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials.t
+            },
+            body: JSON.stringify({ userId: params.userId, followId: followId })
+        })
+        return response.json()
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//unfollow an user
+const unfollow = async (params, credentials, unfollowId) => {
+    try {
+        let response = await fetch('/api/users/unfollow/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials.t
+            },
+            body: JSON.stringify({ userId: params.userId, unfollowId: unfollowId })
+        })
+        await response.json()
+    } catch (err) {
+        console.log(err);
+    }
+}
 export { create, list, read, update, remove }
