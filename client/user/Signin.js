@@ -51,12 +51,12 @@ const Signin = (props) => {
         email: '',
         password: '',
         error: '',
-        redirectToReferrer: false
+        redirectToReferrer: false,
+        open: false
     });
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value })
-        console.log(event.target.value);
     }
 
     const clickSubmit = () => {
