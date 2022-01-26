@@ -90,6 +90,7 @@ const remove = async (params, credentials) => {
 const follow = async (params, credentials, followId) => {
     try {
         let response = await fetch('/api/users/follow/', {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -97,7 +98,7 @@ const follow = async (params, credentials, followId) => {
             },
             body: JSON.stringify({ userId: params.userId, followId: followId })
         })
-        return response.json()
+        return await response.json()
     } catch (err) {
         console.log(err);
     }
@@ -107,6 +108,7 @@ const follow = async (params, credentials, followId) => {
 const unfollow = async (params, credentials, unfollowId) => {
     try {
         let response = await fetch('/api/users/unfollow/', {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -114,9 +116,9 @@ const unfollow = async (params, credentials, unfollowId) => {
             },
             body: JSON.stringify({ userId: params.userId, unfollowId: unfollowId })
         })
-        await response.json()
+        return await response.json()
     } catch (err) {
         console.log(err);
     }
 }
-export { create, list, read, update, remove }
+export { create, list, read, update, remove, follow, unfollow }

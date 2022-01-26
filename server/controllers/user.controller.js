@@ -112,7 +112,7 @@ const defaultPhoto = (req, res) => {
 }
 
 // follow/unfollow
-const addFollowing = (req, res, next) => {
+const addFollowing = async (req, res, next) => {
     try {
         await User.findByIdAndUpdate(req.body.userId, { $push: { following: req.body.followId } })
         next()
@@ -121,7 +121,7 @@ const addFollowing = (req, res, next) => {
     }
 }
 
-const addFollower = (req, res) => {
+const addFollower = async (req, res) => {
     try {
         let result = await User.findByIdAndUpdate(req.body.followId, { $push: { followers: req.body.userId } }, { new: true })
             .populate('following', '_id name')
@@ -137,7 +137,7 @@ const addFollower = (req, res) => {
     }
 }
 
-const removeFollowing = (req, res, next) => {
+const removeFollowing = async (req, res, next) => {
     try {
         await User.findByIdAndUpdate(req.body.userId, { $pull: { following: req.body.unfollowId } })
         next()
@@ -148,15 +148,16 @@ const removeFollowing = (req, res, next) => {
     }
 }
 
-const removeFollower = (req, res) => {
+const removeFollower = async (req, res) => {
     try {
-        await User.findByIdAndUpdate(req.body.unfollowId, { $pull: { followers: req.body.userId } }, { new: true })
+        let result = await User.findByIdAndUpdate(req.body.unfollowId, { $pull: { followers: req.body.userId } }, { new: true })
             .populate('following', '_id name')
             .populate('followers', '_id name')
             .exec()
         result.hashed_password = undefined
         result.salt = undefined
         res.json(result)
+        console.log(result);
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)

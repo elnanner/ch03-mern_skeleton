@@ -15,7 +15,9 @@ import Edit from '@material-ui/icons/Edit'
 import Person from '@material-ui/icons/Person'
 import Divider from '@material-ui/core/Divider'
 import { Redirect, Link } from 'react-router-dom'
-import DeleteUser from './DeleteUser';
+import DeleteUser from './DeleteUser'
+import FollowProfileButton from './FollowProfileButton,'
+import { values } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -35,11 +37,19 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Profile = ({ match }) => {
+export default function Profile({ match }) {
 
   const classes = useStyles()
-  const [user, setUser] = useState({});
   const [redirecToSignin, setRedirecToSignin] = useState(false);
+
+  const [values, setValues] = useState({
+    user: { following: [], followers: [] },
+    redirectToSignin: false,
+    following: false
+  })
+
+  const [posts, setPosts] = useState([])
+  const jwt = auth.isAuthenticated()
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -47,9 +57,10 @@ const Profile = ({ match }) => {
     const jwt = auth.isAuthenticated()
     read({ userId: match.params.userId }, { t: jwt.token }, signal).then((data) => {
       if (data && data.error) {
-        setRedirecToSignin(true)
+        setValues({ ...values, redirectToSignin: true })
       } else {
-        setUser(data)
+        let following = checkFollow(data)
+        setValues({ ...values, user: data, following: following })
         console.log(data);
         console.log(data.photo);
 
@@ -61,8 +72,31 @@ const Profile = ({ match }) => {
     }
   }, [match.params.userId]);
 
-  const photoUrl = user._id
-    ? `/api/users/photo/${user._id}?${new Date().getTime()}`
+  const checkFollow = (user) => {
+    const match = user.followers.some((follower) => {
+      return follower._id == jwt.user._id
+    })
+    return match
+  }
+
+  const clickFollowButton = (callApi) => {
+    callApi({
+      userId: jwt.user._id
+    }, {
+      t: jwt.token
+    }, values.user._id).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error })
+      } else {
+        setValues({
+          ...values, user: data, following: !values.following
+        })
+      }
+    })
+  }
+
+  const photoUrl = values.user._id
+    ? `/api/users/photo/${values.user._id}?${new Date().getTime()}`
     : '/api/users/defaultPhoto'
 
   if (redirecToSignin) {
@@ -81,30 +115,30 @@ const Profile = ({ match }) => {
               <Person />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={user.name} secondary={user.email} /> {
-            auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
-            (<ListItemSecondaryAction>
-              <Link to={"/user/edit/" + user._id}>
-                <IconButton aria-label="Edit" color="primary">
-                  <Edit />
-                </IconButton>
-              </Link>
-              <DeleteUser userId={user._id} />
-            </ListItemSecondaryAction>)
+          <ListItemText primary={values.user.name} secondary={values.user.email} /> {
+            auth.isAuthenticated().user && auth.isAuthenticated().user._id == values.user._id
+              ? (<ListItemSecondaryAction>
+                <Link to={"/user/edit/" + values.user._id}>
+                  <IconButton aria-label="Edit" color="primary">
+                    <Edit />
+                  </IconButton>
+                </Link>
+                <DeleteUser userId={values.user._id} />
+              </ListItemSecondaryAction>)
+              : (<FollowProfileButton following={values.following} onButtonClick={clickFollowButton} />)
           }
         </ListItem>
         <Divider />
         <ListItem>
-          <ListItemText primary={user.about} />
+          <ListItemText primary={values.user.about} />
         </ListItem>
         <Divider />
         <ListItem>
           <ListItemText primary={"Joined: " + (
-            new Date(user.created)).toDateString()} />
+            new Date(values.user.created)).toDateString()} />
         </ListItem>
       </List>
     </Paper>
   )
-};
+}
 
-export default Profile;

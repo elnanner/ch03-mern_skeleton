@@ -51,7 +51,8 @@ const Signin = (props) => {
         email: '',
         password: '',
         error: '',
-        redirectToReferrer: false
+        redirectToReferrer: false,
+        open: false
     });
 
     const handleChange = name => event => {
