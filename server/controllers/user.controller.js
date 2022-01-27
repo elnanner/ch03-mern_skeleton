@@ -164,4 +164,18 @@ const removeFollower = async (req, res) => {
     }
 }
 
-export default { create, list, userByID, read, update, remove, photo, defaultPhoto, addFollowing, addFollower, removeFollowing, removeFollower }
+// find people to follow
+const findPeople = async (req, res) => {
+    let following = req.profile.following
+    following.push(req.profile._id)
+    try {
+        let people = await User.find({ _id: { $nin: following } }).select('name')
+        res.json(people)
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        })
+    }
+}
+
+export default { create, list, userByID, read, update, remove, photo, defaultPhoto, addFollowing, addFollower, removeFollowing, removeFollower, findPeople }

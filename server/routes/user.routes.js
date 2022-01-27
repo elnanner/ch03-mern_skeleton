@@ -23,6 +23,8 @@ router.route('/api/users/:userId')
     .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove)
 
+router.route('/api/users/findpeople/:userId')
+    .get(authCtrl.requireSignin, userCtrl.findPeople)
 router.param('userId', userCtrl.userByID)
 
 export default router

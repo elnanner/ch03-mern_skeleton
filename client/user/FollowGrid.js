@@ -1,6 +1,8 @@
-import { Avatar, GridList, GridListTile, Link, Typography } from '@material-ui/core';
+import { Avatar, GridList, GridListTile, Typography } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,7 +39,7 @@ const FollowGrid = ({ people }) => {
                             return <GridListTile style={{ 'height': 120 }} key={i}>
                                 <Link to={`/user/${person._id}`}>
                                     <Avatar src={`/api/users/photo/${person._id}`} className={classes.bigAvatar} />
-                                    <Typography className={classes.titleText}>
+                                    <Typography className={classes.titleText} >
                                         {person.name}
                                     </Typography>
                                 </Link>

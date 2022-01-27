@@ -1,4 +1,3 @@
-
 // create user
 const create = async (user) => {
     try {
@@ -121,4 +120,22 @@ const unfollow = async (params, credentials, unfollowId) => {
         console.log(err);
     }
 }
-export { create, list, read, update, remove, follow, unfollow }
+
+// fetch users to follow
+const findPeople = async (params, credentials, signal) => {
+    try {
+        let response = await fetch('/api/users/findpeople/' + params.userId, {
+            signal: signal,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials.t
+            }
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err);
+    }
+}
+export { create, list, read, update, remove, follow, unfollow, findPeople }
