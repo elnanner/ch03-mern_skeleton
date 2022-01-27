@@ -17,7 +17,7 @@ import Divider from '@material-ui/core/Divider'
 import { Redirect, Link } from 'react-router-dom'
 import DeleteUser from './DeleteUser'
 import FollowProfileButton from './FollowProfileButton,'
-import { values } from 'lodash';
+import ProfileTabs from './ProfileTabs';
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -61,9 +61,6 @@ export default function Profile({ match }) {
       } else {
         let following = checkFollow(data)
         setValues({ ...values, user: data, following: following })
-        console.log(data);
-        console.log(data.photo);
-
       }
     })
 
@@ -138,6 +135,7 @@ export default function Profile({ match }) {
             new Date(values.user.created)).toDateString()} />
         </ListItem>
       </List>
+      <ProfileTabs user={values.user} />
     </Paper>
   )
 }
