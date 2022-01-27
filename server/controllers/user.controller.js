@@ -157,7 +157,6 @@ const removeFollower = async (req, res) => {
         result.hashed_password = undefined
         result.salt = undefined
         res.json(result)
-        console.log(result);
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)
