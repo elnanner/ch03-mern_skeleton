@@ -56,12 +56,12 @@ const FindPeople = () => {
         const abortController = new AbortController()
         const signal = abortController.signal
 
-        findPeople({ userid: jwt.user._id }, { t: jwt.token }, signal)
+        findPeople({ userId: jwt.user._id }, { t: jwt.token }, signal)
             .then((data) => {
                 if (data && data.error) {
                     console.log(data.error)
                 } else {
-                    setValues({ ...values, users.data })
+                    setValues({ ...values, users: data })
                 }
             })
 
@@ -101,7 +101,7 @@ const FindPeople = () => {
                                     <ViewIcon />
                                 </IconButton>
                             </Link>
-                            <Button aria-label='Follow' variant='contained' color='primary' onClick={() => { clickFollow(item, i) }}></Button>
+                            <Button aria-label='Follow' variant='contained' color='primary' onClick={() => { clickFollow(item, i) }}>Follow</Button>
                         </ListItemSecondaryAction>
                     </ListItem>
                 </span>
