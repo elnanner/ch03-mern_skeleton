@@ -6,7 +6,7 @@ import postCtrl from '../controllers/post.controller'
 const router = express.Router()
 
 router.route('/api/posts/feed/:userId')
-    .get(authCtrl.requireSignin, postCtrl.listNewFeeds)
+    .get(authCtrl.requireSignin, postCtrl.listNewsFeed)
 
 router.param('userId', userCtrl.userByID)
 
