@@ -17,7 +17,11 @@ import Divider from '@material-ui/core/Divider'
 import { Redirect, Link } from 'react-router-dom'
 import DeleteUser from './DeleteUser'
 import FollowProfileButton from './FollowProfileButton,'
-import ProfileTabs from './ProfileTabs';
+import ProfileTabs from './ProfileTabs'
+import { listByUser } from '../post/api-post'
+import PostList from '../post/PostList'
+import { green } from '@material-ui/core/colors';
+import { colors } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -34,6 +38,9 @@ const useStyles = makeStyles(theme => ({
     width: 60,
     height: 60,
     margin: 10
+  },
+  postByText: {
+    color: theme.palette.primary.light
   }
 }))
 
@@ -61,6 +68,7 @@ export default function Profile({ match }) {
       } else {
         let following = checkFollow(data)
         setValues({ ...values, user: data, following: following })
+        loadPosts(data._id)
       }
     })
 
@@ -90,6 +98,17 @@ export default function Profile({ match }) {
         })
       }
     })
+  }
+
+  const loadPosts = (user) => {
+    listByUser({ userId: user }, { t: jwt.token })
+      .then((data) => {
+        if (data && data.error) {
+          console.log(data.error);
+        } else {
+          setPosts(data)
+        }
+      })
   }
 
   const photoUrl = values.user._id
@@ -136,6 +155,9 @@ export default function Profile({ match }) {
         </ListItem>
       </List>
       <ProfileTabs user={values.user} />
+      <Divider />
+      <Typography variant='h6' className={classes.postByText}>Posts by {values.user.name}</Typography>
+      <PostList posts={posts} removeUpdate={console.log(`removing`)} />
     </Paper>
   )
 }

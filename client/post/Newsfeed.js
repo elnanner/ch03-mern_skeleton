@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Card from '@material-ui/core/Card'
 import { Divider } from '@material-ui/core'
-import Typography  from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography'
 import PostList from './PostList'
 import auth from '../auth/auth-helper'
-import listNewsFeed from '../post/api-post'
+import { listNewsFeed } from '../post/api-post'
 
 export const Newsfeed = () => {
     const jwt = auth.isAuthenticated()
