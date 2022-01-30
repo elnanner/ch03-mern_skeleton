@@ -16,7 +16,7 @@ const PostList = ({ posts, removeUpdate }) => {
     )
 }
 
-PostList.PropTypes = {
+PostList.propTypes = {
     posts: PropTypes.array.isRequired,
     removeUpdate: PropTypes.func.isRequired
 }
